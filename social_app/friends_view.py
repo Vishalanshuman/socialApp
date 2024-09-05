@@ -51,7 +51,7 @@ class RespondFriendRequestView(generics.GenericAPIView):
         print(friend_request_id)
         action = request.data.get('action') 
         try:
-            friend_request = FriendRequest.objects.get(id=friend_request_id, receiver=request.user)
+            friend_request = FriendRequest.objects.get(sender=friend_request_id, receiver=request.user)
             if friend_request.status != 'sent':
                 return Response({"detail": "Action already taken on this request."}, status=status.HTTP_400_BAD_REQUEST)
             if action == 'accept':
